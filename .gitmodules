@@ -1,0 +1,15 @@
+[submodule "forcelayout"]
+	path = forcelayout
+	url = git://github.com/anvaka/forcelayout.cc.git
+
+[submodule "nangraph"]
+	path = nangraph
+	url = git://github.com/anvaka/nangraph.cc.git
+
+[submodule "quadtree"]
+	path = quadtree
+	url = git://github.com/anvaka/quadtree.cc.git
+
+[submodule "random"]
+	path = random
+	url = git://github.com/anvaka/random.cc.git
