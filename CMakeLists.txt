@@ -15,5 +15,9 @@ main ./forcelayout/src/layout.cc ./nangraph/src/graph.cc ./quadtree/src/quadtree
 
 target_include_directories(
 main PRIVATE
-./forcelayout/include ./nangraph/include ./quadtree/include ./random/include/
+./forcelayout/include ./nangraph/include ./quadtree/include ./random/include
+)
+
+add_executable(
+gen ./gener.cpp
 )
