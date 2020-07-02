@@ -10,11 +10,11 @@ if (OPENMP_FOUND)
 endif()
 
 add_executable(
-main ./forcelayout/src/layout.cc ./nangraph/src/graph.cc ./quadtree/src/quadtree.cc ./main.cpp
+demo ./forcelayout/src/layout.cc ./nangraph/src/graph.cc ./quadtree/src/quadtree.cc ./demo.cpp
 )
 
 target_include_directories(
-main PRIVATE
+demo PRIVATE
 ./forcelayout/include ./nangraph/include ./quadtree/include ./random/include
 )
 

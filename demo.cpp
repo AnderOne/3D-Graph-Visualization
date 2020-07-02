@@ -1,4 +1,4 @@
-#include "forcelayout.cc/layout.h"
+#include "layout.hpp"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -17,32 +17,33 @@ int main(int argc, const char *argv[]) {
 
 	const size_t num_iter = ((argc > 3)? atol(argv[3]): (1));
 	assert(num_iter > 0);
-	Graph graph;
 
 	std::ifstream finp(argv[1]);
 	size_t num_vert, num_edge; finp >> num_vert >> num_edge;
-	for (int i = 0; i < num_vert; ++ i) graph.addNode(i);
+	std::vector<std::pair<size_t, size_t>> edge;
+	std::vector<int> used(num_vert, 1);
 	for (int i = 0; i < num_edge; ++ i) {
-		int a, b; finp >> a >> b; graph.addLink(a, b);
+		int a, b; finp >> a >> b; edge.push_back({a, b});
 	}
 	finp.close();
 
-	ForceLayout<3> layout(graph);
+	Layout layout(used, edge);
 	for (int i = 0; i < num_iter; ++ i) {
-		layout.step();
+		layout.run();
 		const double per = (double(i + 1) / num_iter);
-		std::cout << (100 * per) << "%" << std::endl;
+		std::cout << (100 * per) << "%";
+		std::cout << std::endl;
 	}
 
 	std::ofstream fout(argv[2]);
 	for (int i = 0; i < num_vert; ++i) {
-		const auto* body = layout.getBody(i);
-		assert(body);
-		fout << body->pos.coord[0];
+		if (!used[i]) continue;
+		const auto &p = layout.get(i);
+		fout << p.coord[0];
 		fout << "\t";
-		fout << body->pos.coord[1];
+		fout << p.coord[1];
 		fout << "\t";
-		fout << body->pos.coord[2];
+		fout << p.coord[2];
 		fout << "\n";
 	}
 	fout.close();
